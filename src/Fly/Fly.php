@@ -13,20 +13,20 @@ use pocketmine\event\Listener;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\command\ConsoleCommandSender;
-use pocketmine\event\entity\EnityLevelChangeEvent;
+use pocketmine\event\entity\EntityLevelChangeEvent;
 
 class Fly extends PluginBase implements Listener{
 
     public function onEnable() {
-        $this->getLogger()->info(TextFormat::GREEN." -Fly On");
-        $this->getLogger()->info(TextFormat::GREEN." -Fait par Noctalia");
+        $this->getLogger()->info(TextFormat::GREEN."- Plugin Fly On");
+        $this->getLogger()->info(TextFormat::GREEN."- Fait par Noctalia");
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->reloadConfig();
     }
 
     public function onCommand(CommandSender $sender, Command $command, $label, array $args) : bool{
         if (!$sender->hasPermission("fly.command")) {
-            $sender->sendMessage(TextFormat::RED.TextFormat::ITALIC." Vous n'avez pas la permission de faire cette commande");
+            $sender->sendMessage(TextFormat::RED.TextFormat::ITALIC."Vous n'avez pas la permission de faire cette commande");
             return false;
         }
         $sender = $sender;
@@ -45,7 +45,7 @@ class Fly extends PluginBase implements Listener{
             $sender->sendMessage(TextFormat::RED.TextFormat::ITALIC."Vous ne pouvez pas utiliser le fly en creatif");
             return false;
         }
-        if (!$sender->getAllowFight()) {
+        if (!$sender->getAllowFlight()) {
             $sender->addTitle(TextFormat::AQUA."Fly", TextFormat::RED."Désactivé", 20, 10, 20); 
             $sender->setFlying(false);
             $sender->setAllowFlight(false);
@@ -58,17 +58,19 @@ class Fly extends PluginBase implements Listener{
 
     public function flyAllowed($world) : bool{
         $config = new Config($this->getDataFolder()."config.yml", Config::YAML);
-        $worlds = $config->get("world, []");
+        $worlds = $config->get("worlds, []");
         return in_array($world, $worlds);
     }
     public function onChange(EntityLevelChangeEvent $event) {
         $player = $event->getEntity();
         if ($player instanceof Player) {
             $world = $event->getTarget()->getFolderName();
-            if (!$this->flyAllowed($worl) and $player->getAllowFlight() and $player->isSurvival());
+            if (!$this->flyAllowed($world) and $player->getAllowFlight() and $player->isSurvival()) {
             $player->addTitle(TextFormat::AQUA."Fly", TextFormat::RED.TextFormat::BOLD."Désactivé", 20, 10, 20);
             $player-> setFlying(false);
-            $player->setAllowedflight(false);
+            $player->setAllowedFlight(false);
+			}
+
         }        
     }
 }
