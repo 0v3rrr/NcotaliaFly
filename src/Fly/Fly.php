@@ -19,7 +19,7 @@ class Fly extends PluginBase implements Listener{
 
 	public function onEnable() {
 		$this->getLogger()->info(TextFormat::GREEN."- Fly Enabled!");
-		$this->getLogger()->info(TextFormat::GREEN."- make by @DarkByx");
+		$this->getLogger()->info(TextFormat::GREEN."- make by The0v3rD0z");
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$this->reloadConfig();
 	}
@@ -42,7 +42,7 @@ class Fly extends PluginBase implements Listener{
 			return false;
 		}
 		if (!$sender->isSurvival()) {
-			$sender->sendMessage(TextFormat::RED.TextFormat::ITALIC."No puedes usar fly en creativo!");
+			$sender->sendMessage(TextFormat::RED.TextFormat::ITALIC."Vous ne pouvez pas fly en creatif!");
 			return false;
 		}
 		if ($sender->getAllowFlight()) {
