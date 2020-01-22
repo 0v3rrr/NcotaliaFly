@@ -2,7 +2,7 @@
 branches:
 - master
 - dev
-porjects:
+projects:
   Fly:
    path: ""
 ...
