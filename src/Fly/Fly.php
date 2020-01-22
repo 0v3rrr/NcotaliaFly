@@ -58,7 +58,7 @@ class Fly extends PluginBase implements Listener{
 
     public function flyAllowed($world) : bool{
         $config = new Config($this->getDataFolder()."config.yml", Config::YAML);
-        $worlds = $config->get("worlds, []");
+        $worlds = $config->get("worlds", []);
         return in_array($world, $worlds);
     }
     public function onChange(EntityLevelChangeEvent $event) {
@@ -67,10 +67,9 @@ class Fly extends PluginBase implements Listener{
             $world = $event->getTarget()->getFolderName();
             if (!$this->flyAllowed($world) and $player->getAllowFlight() and $player->isSurvival()) {
             $player->addTitle(TextFormat::AQUA."Fly", TextFormat::RED.TextFormat::BOLD."Désactivé", 20, 10, 20);
-            $player-> setFlying(false);
+            $player->setFlying(false);
             $player->setAllowedFlight(false);
-			}
-
+            }
         }        
     }
 }
